@@ -174,4 +174,18 @@ public class ParallaxHelper implements Application.ActivityLifecycleCallbacks {
             return (mActivityBack = sParallaxHelper.mLinkedStack.before(mActivity)) != null;
         }
     }
+    
+     public void appExit(){
+        try {
+            for (int i = 0; i< mLinkedStack.size();i++) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    mLinkedStack.getKey(i).finishAndRemoveTask();
+                }else {
+                    mLinkedStack.getKey(i).finish();
+                }
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
 }
